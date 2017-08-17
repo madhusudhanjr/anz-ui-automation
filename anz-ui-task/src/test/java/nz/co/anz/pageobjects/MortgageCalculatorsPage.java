@@ -23,7 +23,7 @@ public class MortgageCalculatorsPage extends BasePage {
 	WebElement borrwingCalculator;
 
 	/**
-	 * Constructor for HomePage
+	 * Constructor for MortgageCalculatorsPage
 	 * 
 	 * @param driver
 	 */

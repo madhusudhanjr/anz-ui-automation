@@ -18,14 +18,14 @@ public class RepaymentsCalculatorTests extends BaseTest {
 	Logger logger = Logger.getLogger(RepaymentsCalculatorTests.class);
 
 	/**
-	 * This Test Method register as a new user to ww.gameduell.com and logs in
-	 * with the created user details
+	 * Test Scenario: To verify the home loan repayments detail
 	 * 
+	 * @param url
 	 * @throws Exception
 	 */
 	@Parameters({ "url" })
 	@Test(priority = 0)
-	public void homeLoanRepaymentCalcultorTest(String url) throws Exception {
+	public void verifyHomeLoanRepaymentDetails(String url) throws Exception {
 
 		logger.info("Enter TestMethod");
 
@@ -88,14 +88,14 @@ public class RepaymentsCalculatorTests extends BaseTest {
 	}
 
 	/**
-	 * This Test Method register as a new user to ww.gameduell.com and logs in
-	 * with the created user details
+	 * Test Scenario: To verify the loan amount field error message
 	 * 
+	 * @param url
 	 * @throws Exception
 	 */
 	@Parameters({ "url" })
-	@Test(priority = 0)
-	public void verifyLoanAmount(String url) throws Exception {
+	@Test(priority = 1)
+	public void verifyLoanAmountFieldError(String url) throws Exception {
 
 		logger.info("Enter TestMethod");
 
@@ -116,21 +116,23 @@ public class RepaymentsCalculatorTests extends BaseTest {
 
 		logger.info("Reset Loan Form");
 		m_repaymentsCalculatorPage.resetLoanForm();
-		
+
 		logger.info("Verify Loan Amount Reset");
 		String loanAmt = m_repaymentsCalculatorPage.getLoanAmount();
 		Assert.assertTrue(loanAmt.isEmpty(), "Loan Amount is not reset!!");
-		
+
 		logger.info("Enter Loan Amount");
 		m_repaymentsCalculatorPage.enterLoanAmount(loanAmount);
 
 		logger.info("Click Calculate Button");
 		m_repaymentsCalculatorPage.clickCalculateBtn();
-		
+
 		logger.info("Verify Loan Amount Error");
 		String loanAmtError = m_repaymentsCalculatorPage.getTotalLoanAmountError();
-		Assert.assertTrue((null != loanAmtError && !loanAmtError.isEmpty()
-				&& loanAmtError.equalsIgnoreCase(CommonHelper.LOAN_AMOUNT_ERROR)), "Loam Amount Error Message NULL / Empty / Mismatch!!");
+		Assert.assertTrue(
+				(null != loanAmtError && !loanAmtError.isEmpty()
+						&& loanAmtError.equalsIgnoreCase(CommonHelper.LOAN_AMOUNT_ERROR)),
+				"Loam Amount Error Message NULL / Empty / Mismatch!!");
 		logger.info("Loan Amount Error:: " + loanAmtError);
 
 		logger.info("Exit TestMethod");

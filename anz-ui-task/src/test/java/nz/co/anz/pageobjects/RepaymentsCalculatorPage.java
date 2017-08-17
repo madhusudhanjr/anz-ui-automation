@@ -14,14 +14,28 @@ import nz.co.anz.utils.CommonHelper;
  * 
  * @author Madhusudhan (madhusudhan.jr@gmail.com)
  */
+/**
+ * @author jmadh
+ *
+ */
+/**
+ * @author jmadh
+ *
+ */
+
+/**
+ * @author jmadh
+ *
+ */
+/**
+ * @author jmadh
+ *
+ */
 public class RepaymentsCalculatorPage extends BasePage {
 
 	/**
 	 * All WebElements are identified by @FindBy annotation
 	 */
-
-	@FindBy(css = ".masthead h1")
-	WebElement heading;
 
 	@FindBy(id = "LoanAmount")
 	WebElement loanAmount;
@@ -53,14 +67,8 @@ public class RepaymentsCalculatorPage extends BasePage {
 	@FindBy(css = ".field-validation-error")
 	WebElement loanAmountError;
 
-	@FindBy(css = ".reset")
-	WebElement resetBtn;
-
-	@FindBy(css = ".ui-button-text")
-	WebElement resetFormBtn;
-
 	/**
-	 * Constructor for HomePage
+	 * Constructor for RepaymentsCalculatorPage
 	 * 
 	 * @param driver
 	 */
@@ -70,22 +78,20 @@ public class RepaymentsCalculatorPage extends BasePage {
 	}
 
 	/**
-	 * This method is used to click Mortgage Calculators -> Repayments
-	 * Calculator
-	 */
-	public String getHeaderText() {
-
-		return heading.getText();
-	}
-
-	/**
-	 * This method is used to click Mortgage Calculators -> Borrowing Calculator
+	 * This method is used to enter Loan Amount
+	 * 
+	 * @param loanAmt
 	 */
 	public void enterLoanAmount(String loanAmt) {
 
 		loanAmount.sendKeys(loanAmt);
 	}
 
+	/**
+	 * This method is used to select the Interest Rate fromn the drop down
+	 * 
+	 * @param rate
+	 */
 	public void selectInterestRate(String rate) {
 
 		selectRates.click();
@@ -101,23 +107,44 @@ public class RepaymentsCalculatorPage extends BasePage {
 
 	}
 
+	/**
+	 * This method is used to select the Loan Length by selecting from the Combo
+	 * Box
+	 * 
+	 * @param option
+	 */
 	public void selectLoanLength(String option) {
 
 		CommonHelper.selectOption(loanLength, option);
 	}
 
+	/**
+	 * This method is used to select the Repay Frequency
+	 * 
+	 * @param option
+	 */
 	public void selectRepayFrequency(String option) {
 
 		CommonHelper.selectOption(repayFrequency, option);
 	}
 
+	/**
+	 * This method is used to get the Repay Amount
+	 * 
+	 * @return RepayAmount
+	 */
 	public String getRepayAmount() {
 
-		CommonHelper.waitTillVisible(m_driver, 10, weeklyRepayAmt);
+		CommonHelper.explicitWaitTillVisible(m_driver, 10, weeklyRepayAmt);
 
 		return weeklyRepayAmt.getText();
 	}
 
+	/**
+	 * This method is used to get the Total Interest
+	 * 
+	 * @return Total Interest
+	 */
 	public String getTotalInterest() {
 
 		for (WebElement el : totalInterest) {
@@ -131,6 +158,11 @@ public class RepaymentsCalculatorPage extends BasePage {
 		return null;
 	}
 
+	/**
+	 * This method is used to get the TotalCost
+	 * 
+	 * @return TotalCost
+	 */
 	public String getTotalCost() {
 
 		for (WebElement el : totalCost) {
@@ -144,22 +176,31 @@ public class RepaymentsCalculatorPage extends BasePage {
 		return null;
 	}
 
+	/**
+	 * This method is used to get the Total Loan Amount
+	 * 
+	 * @return Total Loan Amount
+	 */
 	public String getTotalLoanAmount() {
 
 		return totalLoan.getText();
 	}
 
+	/**
+	 * This method is used to get the Loan filed error message
+	 * 
+	 * @return error message
+	 */
 	public String getTotalLoanAmountError() {
 
 		return loanAmountError.getText();
 	}
 
-	public void resetLoanForm() {
-
-		resetBtn.click();
-		resetFormBtn.click();
-	}
-
+	/**
+	 * This method is used to get the Loan Amount
+	 * 
+	 * @return
+	 */
 	public String getLoanAmount() {
 
 		return loanAmount.getText();

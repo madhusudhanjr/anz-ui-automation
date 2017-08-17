@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.SkipException;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
@@ -38,16 +38,15 @@ public class BaseTest {
 	/**
 	 * Class variable which holds the reference to the WebDriver Object
 	 */
-	// public static WebDriver m_driver;
 	public static String m_browser;
 
 	enum Drivers {
 
-		CHROME, FF;
+		CHROME;
 	}
 
 	/**
-	 * Class variable reference to MortgageCalculator Page Objects
+	 * Class variable reference to Page Objects
 	 */
 	public MortgageCalculatorsPage m_mortgageCalculatorsPage;
 	public RepaymentsCalculatorPage m_repaymentsCalculatorPage;
@@ -58,7 +57,6 @@ public class BaseTest {
 	 * for each thread instance
 	 */
 	private static List<WebDriver> m_listOfWebDrivers = Collections.synchronizedList(new ArrayList<WebDriver>());
-
 	private static ThreadLocal<WebDriver> m_driverForThread = new ThreadLocal<WebDriver>() {
 
 		@Override
@@ -78,20 +76,23 @@ public class BaseTest {
 	};
 
 	/**
-	 * This method is used to launch the URL
+	 * This method is used to launch the MortgageCalculator URL
 	 * 
 	 * @param url
 	 * @return MortgageCalculatorsPage
 	 */
 	public MortgageCalculatorsPage launchURL(String url) {
 
-		getDriverInstanceForThread().get(url);
+		getDriverForThread().get(url);
 
-		return new MortgageCalculatorsPage(getDriverInstanceForThread());
+		return new MortgageCalculatorsPage(getDriverForThread());
 	}
 
 	/**
-	 * This method is used to initialize the loggers before executing any tests
+	 * This method will be executed BeforeSuite and is used to initialize the
+	 * loggers before executing tests
+	 * 
+	 * @param browser
 	 */
 	@Parameters({ "browser" })
 	@BeforeSuite(alwaysRun = true)
@@ -102,10 +103,14 @@ public class BaseTest {
 
 	}
 
+	/**
+	 * This method is used to load driver
+	 * 
+	 * @return WebDriver
+	 */
 	public static WebDriver loadDriver() {
 
 		DesiredCapabilities capabilites = null;
-		;
 		WebDriver driver = null;
 
 		switch (Drivers.valueOf(m_browser)) {
@@ -136,8 +141,8 @@ public class BaseTest {
 
 		logger.info("Enter @BeforeTest method");
 
-		getDriverInstanceForThread().manage().window().maximize();
-		getDriverInstanceForThread().manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+		getDriverForThread().manage().window().maximize();
+		getDriverForThread().manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		logger.info("Connection established successfully with the browser!!");
 
 		logger.info("Exit @BeforeTest method");
@@ -145,23 +150,28 @@ public class BaseTest {
 		logger.info("\n\n******START OF TEST CASE:: " + method.getName() + "******\n");
 
 	}
-	
-	@AfterMethod(alwaysRun=true)
+
+	/**
+	 * This method executes after every test method
+	 * 
+	 * @param method
+	 */
+	@AfterMethod(alwaysRun = true)
 	public void tearDown(Method method) {
-	
+
 		logger.info("\n\n******END OF TEST CASE:: " + method.getName() + "******\n");
 	}
 
 	/**
-	 * After Test quits driver after executing all Test Methods which are part
-	 * of Test
+	 * This method executes After Suite and quits driver after executing all Test
+	 * Methods which are part of Test Suite
 	 */
-	@AfterTest(alwaysRun = true)
+	@AfterSuite(alwaysRun = true)
 	public void shutDown() {
 
 		logger.info("Enter @AfterTest method");
 
-		getDriverInstanceForThread().quit();
+		getDriverForThread().quit();
 
 		logger.info("Driver quit success!!");
 		logger.info("Exit @AfterTest method");
@@ -174,7 +184,7 @@ public class BaseTest {
 	 * 
 	 * @return
 	 */
-	public WebDriver getDriverInstanceForThread() {
+	public WebDriver getDriverForThread() {
 		return m_driverForThread.get();
 	}
 

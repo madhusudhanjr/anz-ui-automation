@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Repayments Calculator Test Suite" preserve-order="true">
+<suite name="Mortgage Calculator Test Suite" preserve-order="true" thread-count="1">
 
 	<parameter name="browser" value="CHROME" />
 	<parameter name="url"
 		value="https://www.anz.co.nz/personal/home-loans-mortgages/mortgage-calculators/" />
-
-	<test name="Acceptance Tests">
+		
+	<test name="Repayments Calculator Tests">
 		<classes>
 			<class name="nz.co.anz.tests.RepaymentsCalculatorTests">
+			</class>
+		</classes>
+	</test>
+	<test name="Borrowing Calculator Tests">
+		<classes>
+			<class name="nz.co.anz.tests.BorrowingCalculatorTests">
 			</class>
 		</classes>
 	</test>

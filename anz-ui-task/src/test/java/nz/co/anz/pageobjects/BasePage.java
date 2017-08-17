@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
+import nz.co.anz.utils.CommonHelper;
+
 /**
  * BasePage Class holds abstract / common methods which are supposed to be
  * implemented by all the Page Objects
@@ -15,13 +17,25 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 public abstract class BasePage {
 
 	/**
-	 * The driver
+	 * Class Variable m_driver
 	 */
 	protected final WebDriver m_driver;
 
+	/**
+	 * Commonly used WebElements
+	 */
+	@FindBy(css = ".masthead h1")
+	WebElement heading;
+	
 	@FindBy(css = "input[value='Calculate']")
 	WebElement calculateBtn;
 	
+	@FindBy(css = ".reset")
+	WebElement resetBtn;
+
+	@FindBy(xpath = "//span[(text()= 'Reset')]")
+	WebElement resetFormBtn;
+
 	/**
 	 * A base constructor that sets the page's driver
 	 *
@@ -39,9 +53,29 @@ public abstract class BasePage {
 
 	}
 	
+	/**
+	 * This method is used to get header info
+	 */
+	public String getHeaderText() {
+
+		return heading.getText();
+	}
+	
+	/**
+	 * This method is used to click Calculate Button
+	 */
 	public void clickCalculateBtn() {
 
 		calculateBtn.click();
 	}
 
+	/**
+	 * This method is used to reset the form
+	 */
+	public void resetLoanForm() {
+
+		CommonHelper.explicitWaitTillVisible(m_driver, 10, resetBtn);
+		resetBtn.click();
+		resetFormBtn.click();
+	}
 }
