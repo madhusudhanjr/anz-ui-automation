@@ -7,6 +7,19 @@
 	<name>ANZ UI Component automation task</name>
 	<description>Automation Exercise on automating UI component for ANZ Repayments Calculator and Borrowing Calculator</description>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.20</version>
+				<configuration>
+					<skipTests>true</skipTests>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
