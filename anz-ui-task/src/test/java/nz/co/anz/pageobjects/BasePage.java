@@ -1,8 +1,6 @@
 package nz.co.anz.pageobjects;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
@@ -19,9 +17,6 @@ public abstract class BasePage {
 	 */
 	protected final WebDriver m_driver;
 
-	@FindBy(css = "input[value='Calculate']")
-	WebElement calculateBtn;
-	
 	/**
 	 * A base constructor that sets the page's driver
 	 *
@@ -37,11 +32,6 @@ public abstract class BasePage {
 		AjaxElementLocatorFactory ajaxElementLocatorFactory = new AjaxElementLocatorFactory(driver, 15);
 		PageFactory.initElements(ajaxElementLocatorFactory, this);
 
-	}
-	
-	public void clickCalculateBtn() {
-
-		calculateBtn.click();
 	}
 
 }

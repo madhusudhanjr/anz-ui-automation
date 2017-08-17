@@ -35,6 +35,9 @@ public class RepaymentsCalculatorPage extends BasePage {
 	@FindBy(id = "LoanLength")
 	WebElement loanLength;
 
+	@FindBy(css = "input[value='Calculate']")
+	WebElement calculateBtn;
+
 	@FindBy(id = "RepaymentFrequency")
 	WebElement repayFrequency;
 
@@ -104,6 +107,11 @@ public class RepaymentsCalculatorPage extends BasePage {
 	public void selectLoanLength(String option) {
 
 		CommonHelper.selectOption(loanLength, option);
+	}
+
+	public void clickCalculateBtn() {
+
+		calculateBtn.click();
 	}
 
 	public void selectRepayFrequency(String option) {
