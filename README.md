@@ -24,7 +24,8 @@ Created couple of tests for the Repayments Calculator and Borrowing Calculator U
 
 # Steps to run the Tetsts:
 
-Run the the test suite xml file as TestNG tests
+Run the the test suite xml file as TestNG suite
 
 Test Suite File: src/test/resources/TestSuite/MortgageCalculatorTestSuite.xml
+
 Added Default Test Execution Report: MortgageCalculator_TestExecutionReport.html
